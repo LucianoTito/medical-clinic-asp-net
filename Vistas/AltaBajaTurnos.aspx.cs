@@ -134,7 +134,7 @@ namespace Vistas
             if (dtAgenda == null || dtAgenda.Rows.Count == 0)
             {
                 lblMensajeAgendarTurno.Text = "El médico no tiene horarios disponibles en los próximos 30 días.";
-                lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                lblMensajeAgendarTurno.CssClass = "msg-error";
                 gvHorariosDisponibles.DataSource = null;
                 gvHorariosDisponibles.DataBind();
                 return;
@@ -175,7 +175,7 @@ namespace Vistas
                 if (string.IsNullOrEmpty(txtDniBuscar.Text) || txtNombrePacienteOk.Text == "Paciente inexistente")
                 {
                     lblMensajeAgendarTurno.Text = "Seleccione un paciente antes de reservar.";
-                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                    lblMensajeAgendarTurno.CssClass = "msg-error";
                     return;
                 }
 
@@ -194,12 +194,12 @@ namespace Vistas
                     CargarTurnosDelPaciente(dniPaciente);
 
                     lblMensajeAgendarTurno.Text = "Turno reservado correctamente";
-                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Green;
+                    lblMensajeAgendarTurno.CssClass = "msg-ok";
                 }
                 else
                 {
                     lblMensajeAgendarTurno.Text = "Error al reservar el turno. Verifique si ya fue ocupado.";
-                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                    lblMensajeAgendarTurno.CssClass = "msg-error";
                     CargarGrillaAgenda();
                 }
             }
@@ -222,12 +222,12 @@ namespace Vistas
                     CargarGrillaAgenda();
 
                     lblMensajeAgendarTurno.Text = "Turno cancelado y horario liberado.";
-                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Green;
+                    lblMensajeAgendarTurno.CssClass = "msg-ok";
                 }
                 else
                 {
                     lblMensajeAgendarTurno.Text = "No se pudo cancelar el turno.";
-                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                    lblMensajeAgendarTurno.CssClass = "msg-error";
                 }
             }
         }
@@ -248,7 +248,7 @@ namespace Vistas
                 gvTurnosDelPaciente.DataBind();
 
                 lblMensajeCancelar.Text = "No hay turnos proximos registrados para este paciente.";
-                lblMensajeCancelar.ForeColor = System.Drawing.Color.Red;
+                lblMensajeCancelar.CssClass = "msg-error";
             }
         }
 

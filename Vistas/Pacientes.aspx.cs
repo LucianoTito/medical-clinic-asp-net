@@ -120,17 +120,17 @@ namespace Vistas
                 CargarGrilla();
 
                 lblConfirmacion.Text = modoEdicion ? "Paciente modificado exitosamente." : "Paciente registrado exitosamente.";
-                lblConfirmacion.ForeColor = System.Drawing.Color.Green;
+                lblConfirmacion.CssClass = "msg-ok";
             }
             else if (resultado == 0)
             {
                 lblConfirmacion.Text = modoEdicion ? "No se pudieron actualizar los datos del paciente." : "Ya existe un paciente registrado con ese DNI.";
-                lblConfirmacion.ForeColor = System.Drawing.Color.Red;
+                lblConfirmacion.CssClass = "msg-error";
             }
             else
             {
                 lblConfirmacion.Text = "Hubo un problema al conectar con la base de datos.";
-                lblConfirmacion.ForeColor = System.Drawing.Color.Red;
+                lblConfirmacion.CssClass = "msg-error";
             }
         }
 
@@ -174,13 +174,13 @@ namespace Vistas
                 if (resultado > 0)
                 {
                     lblConfirmacion.Text = "Paciente dado de baja correctamente.";
-                    lblConfirmacion.ForeColor = System.Drawing.Color.Green;
+                    lblConfirmacion.CssClass = "msg-ok";
                     CargarGrilla();
                 }
                 else
                 {
                     lblConfirmacion.Text = "No se pudo dar de baja al paciente.";
-                    lblConfirmacion.ForeColor = System.Drawing.Color.Red;
+                    lblConfirmacion.CssClass = "msg-error";
                 }
             }
 
@@ -211,13 +211,13 @@ namespace Vistas
                 if (resultado > 0)
                 {
                     lblConfirmacion.Text = "Paciente dado de alta correctamente.";
-                    lblConfirmacion.ForeColor = System.Drawing.Color.Green;
+                    lblConfirmacion.CssClass = "msg-ok";
                     CargarGrilla();
                 }
                 else
                 {
                     lblConfirmacion.Text = "No se pudo dar de alta al paciente.";
-                    lblConfirmacion.ForeColor = System.Drawing.Color.Red;
+                    lblConfirmacion.CssClass = "msg-error";
                 }
             }
         }
