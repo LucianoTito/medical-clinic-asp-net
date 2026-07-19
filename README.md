@@ -117,7 +117,7 @@ This project followed an academic specification that fixed some constraints. Doc
 
 - 🔐 **Passwords are stored in plain text** (per course scope). Roadmap: salted hashing (e.g. PBKDF2/bcrypt) at the business layer plus SP changes.
 - ⚙️ Connection string is hardcoded to the local SQLEXPRESS instance with Windows Authentication (no credentials in the repo). Roadmap: move to `Web.config` `connectionStrings` with transformations per environment.
-- 🎨 Some UI feedback colors are set from code-behind; migrating them to CSS classes is in progress.
+- ⚡ Some `AddWithValue` calls remain in the data layer. Roadmap: migrate them to explicitly typed parameters (`SqlDbType`), as already done for date filters in `DaoInformes` and `DaoTurnos`.
 
 ### 👥 Team
 
@@ -243,7 +243,7 @@ Este proyecto siguió una consigna académica que fijó ciertas restricciones. S
 
 - 🔐 **Las contraseñas se almacenan en texto plano** (alcance de la cursada). Roadmap: hashing con salt (ej. PBKDF2/bcrypt) en la capa de negocio más los cambios en los SP.
 - ⚙️ La cadena de conexión está hardcodeada a la instancia local SQLEXPRESS con Autenticación de Windows (no hay credenciales en el repo). Roadmap: moverla a `connectionStrings` en `Web.config` con transformaciones por entorno.
-- 🎨 Algunos colores de feedback de la UI se setean desde code-behind; la migración a clases CSS está en curso.
+- ⚡ Quedan llamadas `AddWithValue` en la capa de datos. Roadmap: migrarlas a parámetros con tipo explícito (`SqlDbType`), como ya se hizo con los filtros de fecha en `DaoInformes` y `DaoTurnos`.
 
 ### 👥 Equipo
 
