@@ -28,7 +28,7 @@ namespace Vistas
             }
         }
 
-      
+
         private void CargarEspecialidades()
         {
             DataTable tabla = negocioEspecialidad.GetEspecialidades();
@@ -88,7 +88,7 @@ namespace Vistas
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            MostrarMensajeGrilla("", System.Drawing.Color.Empty);
+            MostrarMensajeGrilla("", "");
             ViewState["FiltroBusqueda"] = txtBuscar.Text.Trim();
             gvMedicos.PageIndex = 0;
             gvMedicos.DataSource = ObtenerDatosFiltrados();
@@ -108,19 +108,19 @@ namespace Vistas
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            MostrarMensaje("", System.Drawing.Color.Empty);
+            MostrarMensaje("", "");
             lblMensajeGrilla.Text = "";
 
             if (!Page.IsValid) return;
 
-            
+
 
             EntidadMedico medico = ObtenerMedicoDesdeFormulario();
 
             bool modoEdicion = ViewState["ModoEdicion"] != null && (bool)ViewState["ModoEdicion"];
 
-            int resultado; 
-            
+            int resultado;
+
             bool quiereCrearUsuario = QuiereCrearUsuario();
 
 
@@ -136,7 +136,7 @@ namespace Vistas
             {
                 if (quiereCrearUsuario && negocioUsuario.ExisteUsuario(txtUsuario.Text.Trim()))
                 {
-                    MostrarMensaje("Ya existe ese nombre de usuario.", System.Drawing.Color.Red);
+                    MostrarMensaje("Ya existe ese nombre de usuario.", "msg-error");
                     return;
                 }
                 resultado = negocioMedico.AgregarMedico(medico);
@@ -155,17 +155,17 @@ namespace Vistas
 
                 string mensaje = ObtenerMensajeExito(modoEdicion, quiereCrearUsuario);
                 LimpiarFormulario();
-                MostrarMensaje(mensaje, System.Drawing.Color.Green);
+                MostrarMensaje(mensaje, "msg-ok");
             }
             else if (resultado == 0)
             {
-                MostrarMensaje("Ya existe un médico con ese legajo o DNI.", System.Drawing.Color.Red);
+                MostrarMensaje("Ya existe un médico con ese legajo o DNI.", "msg-error");
             }
             else
             {
-                MostrarMensaje("Hubo un problema al conectar con la base de datos.", System.Drawing.Color.Red);
+                MostrarMensaje("Hubo un problema al conectar con la base de datos.", "msg-error");
             }
-                
+
         }
         private EntidadMedico ObtenerMedicoDesdeFormulario()
         {
@@ -203,7 +203,7 @@ namespace Vistas
 
             if (!modoEdicion && !quiereCrearUsuario)
             {
-                MostrarMensaje("Para registrar un médico debe completar usuario, contraseña y confirmación.", System.Drawing.Color.Red);
+                MostrarMensaje("Para registrar un médico debe completar usuario, contraseña y confirmación.", "msg-error");
                 return false;
             }
 
@@ -212,7 +212,7 @@ namespace Vistas
 
             if (!completoUsuario || !completoPass || !completoConfirm)
             {
-                MostrarMensaje("Para crear el usuario debe completar usuario, contraseña y confirmación.", System.Drawing.Color.Red);
+                MostrarMensaje("Para crear el usuario debe completar usuario, contraseña y confirmación.", "msg-error");
                 return false;
             }
 
@@ -237,7 +237,7 @@ namespace Vistas
             {
                 if (negocioUsuario.ExisteUsuario(txtUsuario.Text.Trim()))
                 {
-                    MostrarMensaje("Ya existe un usuario con ese nombre.", System.Drawing.Color.Red);
+                    MostrarMensaje("Ya existe un usuario con ese nombre.", "msg-error");
                     return false;
                 }
 
@@ -250,7 +250,7 @@ namespace Vistas
 
             if (resultadoUsuario <= 0)
             {
-                MostrarMensaje("No se pudo guardar el usuario. Puede que el nombre de usuario ya exista.", System.Drawing.Color.Red);
+                MostrarMensaje("No se pudo guardar el usuario. Puede que el nombre de usuario ya exista.", "msg-error");
                 return false;
             }
 
@@ -271,15 +271,15 @@ namespace Vistas
         }
 
 
-        private void MostrarMensaje(string mensaje, System.Drawing.Color color)
+        private void MostrarMensaje(string mensaje, string cssClass)
         {
             lblConfirmacion.Text = mensaje;
-            lblConfirmacion.ForeColor = color;
+            lblConfirmacion.CssClass = cssClass;
         }
-        private void MostrarMensajeGrilla(string mensaje, System.Drawing.Color color)
+        private void MostrarMensajeGrilla(string mensaje, string cssClass)
         {
             lblMensajeGrilla.Text = mensaje;
-            lblMensajeGrilla.ForeColor = color;
+            lblMensajeGrilla.CssClass = cssClass;
         }
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -325,7 +325,7 @@ namespace Vistas
             ViewState["ModoEdicion"] = false;
             pnlHorarios.Visible = false;
 
-           
+
         }
 
         protected void gvMedicos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -341,12 +341,12 @@ namespace Vistas
 
                 if (resultado > 0)
                 {
-                    MostrarMensajeGrilla("Médico dado de baja correctamente.", System.Drawing.Color.Green);
+                    MostrarMensajeGrilla("Médico dado de baja correctamente.", "msg-ok");
                     CargarGrillaMedicos();
                 }
                 else
                 {
-                    MostrarMensajeGrilla("No se pudo dar de baja el médico.", System.Drawing.Color.Red);
+                    MostrarMensajeGrilla("No se pudo dar de baja el médico.", "msg-error");
                 }
             }
 
@@ -359,12 +359,12 @@ namespace Vistas
 
                 if (resultado > 0)
                 {
-                    MostrarMensajeGrilla("Médico dado de alta correctamente.", System.Drawing.Color.Green);
+                    MostrarMensajeGrilla("Médico dado de alta correctamente.", "msg-ok");
                     CargarGrillaMedicos();
                 }
                 else
                 {
-                    MostrarMensajeGrilla("No se pudo dar de alta el médico.", System.Drawing.Color.Red);
+                    MostrarMensajeGrilla("No se pudo dar de alta el médico.", "msg-error");
                 }
             }
 
@@ -374,7 +374,7 @@ namespace Vistas
                 string legajo = gvMedicos.DataKeys[indice].Value.ToString();
 
                 CargarMedicoEnFormulario(legajo);
-               
+
 
                 ScriptManager.RegisterStartupScript(
                 this,
@@ -463,7 +463,7 @@ namespace Vistas
                 string.IsNullOrWhiteSpace(ddlDiaAtencion.SelectedValue) ||
                 string.IsNullOrWhiteSpace(ddlHorarioAtencion.SelectedValue))
             {
-                MostrarMensaje("Seleccione un día y un horario.", System.Drawing.Color.Red);
+                MostrarMensaje("Seleccione un día y un horario.", "msg-error");
                 return;
             }
 
@@ -475,7 +475,7 @@ namespace Vistas
 
             if (resultado == 1)
             {
-                MostrarMensaje("Horario agregado correctamente.", System.Drawing.Color.Green);
+                MostrarMensaje("Horario agregado correctamente.", "msg-ok");
 
                 CargarHorariosMedico(txtLegajo.Text.Trim());
 
@@ -484,11 +484,11 @@ namespace Vistas
             }
             else if (resultado == 2)
             {
-                MostrarMensaje("Ese horario ya esta asignado al médico.", System.Drawing.Color.Red);
+                MostrarMensaje("Ese horario ya esta asignado al médico.", "msg-error");
             }
             else
             {
-                MostrarMensaje("No se pudo asignar el horario.", System.Drawing.Color.Red);
+                MostrarMensaje("No se pudo asignar el horario.", "msg-error");
             }
         }
         protected void gvHorariosMedico_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -506,12 +506,12 @@ namespace Vistas
 
                 if (resultado > 0)
                 {
-                    MostrarMensaje("Horario eliminado correctamente.", System.Drawing.Color.Green);
+                    MostrarMensaje("Horario eliminado correctamente.", "msg-ok");
                     CargarHorariosMedico(legajo);
                 }
                 else
                 {
-                    MostrarMensaje("No se pudo eliminar el horario.", System.Drawing.Color.Red);
+                    MostrarMensaje("No se pudo eliminar el horario.", "msg-error");
                 }
             }
         }
