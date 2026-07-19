@@ -26,75 +26,6 @@ namespace Dao
             }
         }
 
-        private SqlDataAdapter ObtenerAdaptador(string consultaSql, SqlConnection cn)
-        {
-            SqlDataAdapter adaptador;
-            try
-            {
-                adaptador = new SqlDataAdapter(consultaSql, cn);
-                return adaptador;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public DataTable ObtenerTabla(string nombreTabla, string sql)
-        {
-            DataSet ds = new DataSet();
-            SqlConnection conexion = ObtenerConexion();
-
-            if (conexion == null)
-                return null;
-
-            try
-            {
-                SqlDataAdapter adp = ObtenerAdaptador(sql, conexion);
-                if (adp == null)
-                    return null;
-
-                adp.Fill(ds, nombreTabla);
-                return ds.Tables[nombreTabla];
-            }
-            catch (Exception)
-            {
-                
-                return null;
-            }
-            finally
-            {
-                
-                conexion.Close();
-            }
-        }
-
-        public int EjecutarConsulta(string sql)
-        {
-            SqlConnection conexion = ObtenerConexion();
-
-            if (conexion == null)
-                return 0;
-
-            SqlCommand cmd = new SqlCommand(sql, conexion);
-            int filasAfectadas = 0;
-
-            try
-            {
-                filasAfectadas = cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                filasAfectadas = 0;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-
-            return filasAfectadas;
-        }
-
         public DataTable ObtenerTablaConSP(string nombreSP)
         {
             DataTable dt = new DataTable();
@@ -115,7 +46,7 @@ namespace Dao
             }
             catch (Exception)
             {
-                
+
                 return null;
             }
             finally
