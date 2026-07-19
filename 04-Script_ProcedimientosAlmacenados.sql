@@ -1,4 +1,4 @@
-﻿USE ClinicaMedica;
+USE ClinicaMedica;
 GO
 
 -- SCRIPT DE PROCEDIMIENTOS ALMACENADOS
@@ -799,7 +799,6 @@ USE ClinicaMedica
 go
 
 
-
 CREATE OR ALTER PROCEDURE SP_ObtenerTurnosPorDni
     @Dni_Paciente VARCHAR(20)
 AS
@@ -834,30 +833,6 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE SP_ObtenerTurnosOcupados
-    @Leg_Medico CHAR(7)
-AS
-BEGIN
-    SELECT 
-        Fecha_Tur AS Fecha, 
-        CONVERT(VARCHAR(5), Hora_Tur, 108) AS Hora
-    FROM Turnos
-    WHERE Leg_Medico = @Leg_Medico 
-      AND Estado_Tur = 1 
-END
-GO
-
-CREATE OR ALTER PROCEDURE SP_TraerTurnosMedico
-    @Leg_Medico CHAR(7)
-AS
-BEGIN
-    
-    SELECT Fecha_Tur AS Fecha, CONVERT(VARCHAR(5), Hora_Tur, 108) AS Hora
-    FROM Turnos
-    WHERE Leg_Medico = @Leg_Medico 
-      AND Estado_Tur = 1 
-END
-GO
 
 CREATE OR ALTER PROCEDURE SP_ReservarTurno
     @Leg_Medico CHAR(7),
@@ -887,7 +862,7 @@ GO
 
 --   V29   --
 
-CREATE OR ALTER PROCEDURE sp_ObtenerTurnosPorMedico
+CREATE OR ALTER PROCEDURE SP_ObtenerTurnosPorMedico
     @LegajoMedico CHAR(7),
     @BusquedaPaciente VARCHAR(100) = NULL, -- Puede ser DNI o nombre
     @FechaDesde DATE = NULL,
@@ -931,54 +906,6 @@ END
 GO
 
 
-   -- SP FALTANTES TURNOS
-
-USE ClinicaMedica;
-GO
-
-
-CREATE OR ALTER PROCEDURE SP_ReactivarPaciente
-    @Dni VARCHAR(20)
-AS
-BEGIN
-    UPDATE Pacientes
-    SET Estado_Pac = 1
-    WHERE Dni_Pac = @Dni;
-END;
-GO
-
-
-CREATE OR ALTER PROCEDURE SP_ReactivarMedico
-    @Legajo_Med CHAR(7)
-AS
-BEGIN
-
-    UPDATE Medicos
-    SET Estado_Med = 1
-    WHERE Legajo_Med = @Legajo_Med;
-
-    UPDATE Usuarios
-    SET Activo = 1
-    WHERE Legajo_Med = @Legajo_Med;
-END;
-GO
-
-
-CREATE OR ALTER PROCEDURE SP_TraerHorariosMedico
-    @Leg_Medico CHAR(7)
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    SELECT
-        HM.Id_Dia,
-        RIGHT('0' + CAST(HA.HoraInicio AS VARCHAR(2)), 2) + ':00' AS Hora
-    FROM Horarios_Medicos HM
-    INNER JOIN HorariosAtencion HA ON HM.Id_Horario = HA.Id_Horario
-    WHERE HM.Leg_Medico = @Leg_Medico
-    ORDER BY HM.Id_Dia, HA.HoraInicio;
-END;
-GO
 -- CREAR USUARIO PARA MÉDICO
 IF OBJECT_ID('SP_AgregarUsuarioMedico', 'P') IS NULL
     EXEC('CREATE PROCEDURE SP_AgregarUsuarioMedico AS BEGIN SELECT 1 END');
@@ -1055,7 +982,6 @@ GO
 IF OBJECT_ID('SP_ValidarUsuario', 'P') IS NULL
     EXEC('CREATE PROCEDURE SP_ValidarUsuario AS BEGIN SELECT 1 END');
 GO
-
 
 
 ALTER PROCEDURE SP_ValidarUsuario
