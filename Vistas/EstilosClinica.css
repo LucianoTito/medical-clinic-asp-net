@@ -728,3 +728,24 @@ body {
     color: #dc3545;
     font-size: 12px;
 }
+
+/* ============================================================
+   Mensajes de estado (semánticos)
+   El code-behind asigna la clase según QUÉ pasó;
+   el color/estilo se define únicamente acá.
+   ============================================================ */
+
+.msg-error {
+    color: #c62828; /* rojo error */
+    font-weight: 600;
+}
+
+.msg-ok {
+    color: #2e7d32; /* verde éxito */
+    font-weight: 600;
+}
+
+.msg-info {
+    color: #1565c0; /* azul informativo */
+    font-weight: 600;
+}

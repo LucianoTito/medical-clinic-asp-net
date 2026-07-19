@@ -48,22 +48,22 @@ namespace Vistas
 
             if (dt == null)
             {
-           
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
+
+                lblMensaje.CssClass = "msg-error";
                 lblMensaje.Text = "No se pudo generar el reporte. Verifique la conexión con la base.";
                 gvInformes.DataSource = null;
                 gvInformes.DataBind();
                 return;
             }
 
-            
+
             gvInformes.DataSource = dt;
             gvInformes.DataBind();
 
             // mje explícito cuando la consulta fue OK pero sin resultados.
             if (dt.Rows.Count == 0)
             {
-                lblMensaje.ForeColor = System.Drawing.Color.DarkBlue;
+                lblMensaje.CssClass = "msg-info";
                 lblMensaje.Text = "La consulta no devolvió resultados para los filtros seleccionados.";
             }
         }
@@ -80,7 +80,7 @@ namespace Vistas
 
             if (dt == null)
             {
-                lblMensajePac.ForeColor = System.Drawing.Color.Red;
+                lblMensajePac.CssClass = "msg-error";
                 lblMensajePac.Text = "No se pudo generar el reporte. Verifique la conexión con la base.";
                 gvPacientes.DataSource = null;
                 gvPacientes.DataBind();
@@ -115,10 +115,10 @@ namespace Vistas
             gvPacientes.DataSource = dt;
             gvPacientes.DataBind();
 
-            
+
             if (dt.Rows.Count == 0)
             {
-                lblMensajePac.ForeColor = System.Drawing.Color.DarkBlue;
+                lblMensajePac.CssClass = "msg-info";
                 lblMensajePac.Text = "La consulta no devolvió resultados para los filtros seleccionados.";
             }
         }
@@ -140,7 +140,7 @@ namespace Vistas
 
         protected void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            
+
             if (!Page.IsValid)
                 return;
 
@@ -162,7 +162,7 @@ namespace Vistas
 
             if (dt == null)
             {
-                lblMensajeEsp.ForeColor = System.Drawing.Color.Red;
+                lblMensajeEsp.CssClass = "msg-error";
                 lblMensajeEsp.Text = "No se pudo generar el reporte. Verifique la conexión con la base de datos.";
                 gvEspecialidades.DataSource = null;
                 gvEspecialidades.DataBind();
@@ -174,7 +174,7 @@ namespace Vistas
 
             if (dt.Rows.Count == 0)
             {
-                lblMensajeEsp.ForeColor = System.Drawing.Color.DarkBlue;
+                lblMensajeEsp.CssClass = "msg-info";
                 lblMensajeEsp.Text = "La consulta no devolvió resultados.";
             }
         }

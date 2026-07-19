@@ -60,7 +60,7 @@ namespace Vistas
                 string.IsNullOrWhiteSpace(txtFechaHasta.Text))
             {
                 lblMensaje.Text = "Debe ingresar al menos un criterio para realizar la búsqueda";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.CssClass = "msg-error";
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace Vistas
                     bool ok = negocioTurnos.ActualizarTurnoNeg(idTurno, ddlAsistencia.SelectedValue, txtObservaciones.Text);
                     if (ok)
                     {
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
+                        lblMensaje.CssClass = "msg-ok";
                         lblMensaje.Text = "Turno actualizado con éxito.";
                     }
                 }
@@ -105,7 +105,7 @@ namespace Vistas
             }
             catch (Exception ex)
             {
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.CssClass = "msg-error";
                 lblMensaje.Text = "Error al actualizar: " + ex.Message;
             }
         }
