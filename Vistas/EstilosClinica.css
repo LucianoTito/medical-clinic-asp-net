@@ -1,0 +1,730 @@
+﻿/* ==========================================================================
+   ESTILOS GLOBALES - CLINICA UTN GRUPO 16
+   ========================================================================== */
+* {
+    margin: 0 0px 0 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #1C1C1E;
+    background: #F8FAFB; 
+}
+
+#form1 {
+    height: 100%;
+    width: 100%;
+}
+
+#upLogin {
+    height: 100%;
+}
+
+/* ==========================================================================
+   ESTILOS DE LA MASTER PAGE (Header y Footer)
+   ========================================================================== */
+
+.header {
+    background: #0B3D6F;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    box-shadow: 0 2px 8px rgba(11,61,111,0.15);
+}
+
+.header-logo {
+    height: 50px;
+    border-radius: 6px;
+    margin-right: 35px;
+    object-fit: contain;
+    padding: 2px;
+}
+
+.header-nav {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+    .header-nav a {
+        font-family: 'Outfit', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.85);
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        transition: all 0.15s;
+    }
+
+        .header-nav a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+    .btn-logout:hover {
+        background: rgba(220,38,38,0.8);
+        border-color: transparent;
+    }
+
+.content {
+    padding: 28px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    color: #94a3b8;
+    border-top: 1px solid #E8F2FC;
+    margin-top: 40px;
+}
+
+/* ==========================================================================
+   ESTILOS DEL LOGIN (Login.aspx)
+   ========================================================================== */
+.login-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.login-left {
+    height: 100%;
+    width: 400px;
+    background: #1a5a9e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+    .login-left img {
+        width: 250px;
+        height: 250px;
+        border-radius: 16px;
+        margin-bottom: 10px;
+    }
+
+    .login-left h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0px;
+    }
+
+.text {
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.footer-text {
+    margin-top: 150px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.login-right {
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    background: #F8FAFB;
+}
+
+.login-card {
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 28px rgba(11, 61, 111, 0.08);
+    border: 1px solid #E8F2FC;
+    display: inline-block;
+}
+
+.card-stripe {
+    height: 5px;
+    background: #2A7DE1;
+}
+
+.card-body {
+    padding: 40px;
+    text-align: left;
+}
+
+    .card-body h3 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #0B3D6F;
+        margin-bottom: 4px;
+        margin-top: 0;
+    }
+
+    .card-body .subtitle {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 32px;
+    }
+
+/* ==========================================================================
+   ESTILOS PARA FORMULARIOS ABML Y CONTROLES
+   ========================================================================== */
+.field-group {
+    margin-bottom: 20px;
+}
+
+    .field-group label, .fomato-Label {
+        text-align: left;
+        font-family: 'Outfit', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #0B3D6F;
+        display: block;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+.fomato-Label {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+.input-field, .fomato-TextBox-Ddl {
+    width: 90%;
+    padding: 11px 14px;
+    border: 1px solid #d1d9e6;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    background: #F8FAFB;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.fomato-TextBox-Ddl {
+    width: 100%;
+    font-size: 13px;
+}
+
+    .input-field:focus, .fomato-TextBox-Ddl:focus {
+        border-color: #2A7DE1;
+        background: #fff;
+    }
+
+.btn-ingresar {
+    width: 100%;
+    padding: 12px;
+    background: #2A7DE1;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+    .btn-ingresar:hover {
+        background: #0B3D6F;
+    }
+
+    .btn-ingresar:active {
+        background: #0B3D6F;
+        transform: scale(0.97);
+    }
+
+.formato-Bloque-Contenedor {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid #E8F2FC;
+    box-shadow: 0 4px 16px rgba(11,61,111,0.04);
+    margin-bottom: 24px;
+}
+
+.formato-Titulo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0B3D6F;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #E8F2FC;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-pacientes {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 16px;
+    margin-top: -10px;
+}
+
+    .tabla-pacientes td {
+        vertical-align: top;
+        padding: 0;
+    }
+
+.formato-btnAlineados {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.formato-btnBase {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.formato1-btn {
+    background: #2A7DE1;
+    color: #fff;
+}
+
+    .formato1-btn:hover {
+        background: #0B3D6F;
+    }
+
+.formato2-btn {
+    background: #fff;
+    color: #475569;
+    border: 1px solid #d1d9e6;
+}
+
+    .formato2-btn:hover {
+        background: #f1f5f9;
+    }
+
+/* ==========================================================================
+   ESTILOS PARA LA VISTA MEDICOS
+   ========================================================================== */
+.tabla-medicos {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 16px;
+    margin-top: -10px;
+}
+
+    .tabla-medicos td {
+        vertical-align: top;
+        padding: 0;
+    }
+
+    .tabla-medicos .fomato-Label {
+        margin-top: 10px;
+        margin-bottom: 6px;
+    }
+
+.subtitulo-medicos {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0B3D6F;
+    margin: 6px 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.bloque-horarios {
+    margin: 6px 16px 0;
+}
+
+.acciones-celda {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-modificar {
+    background: #f0a500;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+    .btn-modificar:hover {
+        background: #d4900a;
+    }
+
+.btn-eliminar {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+    .btn-eliminar:hover {
+        background: #b02a37;
+    }
+
+.btn-credenciales {
+    background: #17a2b8;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+    .btn-credenciales:hover {
+        background: #138496;
+    }
+
+.nota-credenciales {
+    background: #fff8e1;
+    border-left: 3px solid #f0ad4e;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #856404;
+    margin-bottom: 14px;
+}
+
+.horarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+    .horarios-table th {
+        background: #f0f4fa;
+        color: #0B3D6F;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 8px 10px;
+        text-align: left;
+        border-bottom: 1px solid #dde3ed;
+    }
+
+    .horarios-table td {
+        padding: 7px 10px;
+        border-bottom: 1px solid #eef0f4;
+    }
+
+        .horarios-table td select,
+        .horarios-table td input {
+            padding: 5px 8px;
+            border: 1px solid #d1d9e6;
+            border-radius: 4px;
+            font-size: 12px;
+            width: 100%;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+.horarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.btn-agregar-horario {
+    background: #e8f0fb;
+    color: #2A7DE1;
+    border: 1px solid #b8d0f0;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+.btn-rm {
+    background: #fde8e8;
+    color: #c0392b;
+    border: 1px solid #f5c6c6;
+    padding: 4px 9px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.busqueda-medicos td {
+    vertical-align: bottom;
+}
+
+.contenedor-grilla {
+    width: 100%;
+    overflow-x: auto;
+}
+
+    .contenedor-grilla .custom-grid {
+        width: 100%;
+        min-width: 1000px;
+    }
+
+.mensaje-grilla {
+    display: block;
+    margin: 8px 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   ESTILOS ALTA/BAJA TURNOS
+   ============================== */
+.btn-danger {
+    background-color: #dc3545 !important; 
+    color: white !important;
+    border: 1px solid #dc3545 !important;
+}
+
+
+    .btn-danger:hover {
+        background-color: #bd2130 !important;
+        border-color: #b21f2d !important;
+        cursor: pointer;
+    }
+
+    .btn-danger:disabled {
+        background-color: #E2E8F0 !important; 
+        color: #94A3B8 !important;
+        border-color: #CBD5E1 !important; 
+        cursor: not-allowed !important; 
+    }
+
+/* ==============================
+   ESTILOS PACIENTES
+   ============================== */
+
+.custom-grid {
+    width: auto;
+    min-width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+    .custom-grid th {
+        background-color: #2c3e50;
+        color: #ffffff;
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .custom-grid td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eef2f3;
+        color: #333333;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .custom-grid tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    .custom-grid tr:hover {
+        background-color: #f1f3f5;
+        transition: background-color 0.2s ease;
+    }
+
+    .custom-grid a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+        .custom-grid a:hover {
+            text-decoration: underline;
+        }
+
+        .custom-grid a[href*="Delete"], .custom-grid a[href*="Eliminar"] {
+            color: #e74c3c;
+        }
+
+    .custom-grid tr.texto-rojo-fijo td {
+        color: red !important;
+        font-weight: bold;
+    }
+
+/* ============================================================
+   PAGINADOR DE GRILLAS (GridView con AllowPaging)
+   ASP.NET genera la fila de números de página como una TABLA
+   ANIDADA dentro de una celda de la grilla. Sin estas reglas,
+   cada número hereda el padding de 12px y el borde inferior de
+   ".custom-grid td", y por eso se ven "separados" en cajones.
+   Estas reglas aplican a TODAS las grillas de la app.
+   ============================================================ */
+.custom-grid td table {
+    border-collapse: collapse;
+    margin: 0 auto; /* números centrados en la fila */
+    box-shadow: none;
+    min-width: 0;
+}
+
+    .custom-grid td table td {
+        padding: 2px 4px; /* pisa el padding grande heredado */
+        border-bottom: none; /* pisa el borde heredado */
+        background-color: transparent;
+    }
+
+    /* Links a las otras páginas */
+    .custom-grid td table a {
+        display: inline-block;
+        min-width: 24px;
+        padding: 3px 8px;
+        margin: 0; /* pisa el margin-right de .custom-grid a */
+        text-align: center;
+        color: #3498db;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+        .custom-grid td table a:hover {
+            background-color: #eaf4fc;
+            text-decoration: none;
+        }
+
+    /* Página actual (ASP.NET la renderiza como <span>) */
+    .custom-grid td table span {
+        display: inline-block;
+        min-width: 24px;
+        padding: 3px 8px;
+        text-align: center;
+        background-color: #2c3e50;
+        color: #ffffff;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+/* Mensajes de error de los validadores (ABML Médicos) */
+.validador-error {
+    display: block;
+    margin-top: 4px;
+    min-height: 16px;
+    color: #dc3545;
+    font-size: 12px;
+}
+
+/* ==============================
+   LAYOUT FORMULARIO PACIENTES
+   ============================== */
+.fila-titulo td {
+    padding-bottom: 0px;
+    vertical-align: top;
+}
+
+.fila-campo td {
+    padding-bottom: 18px;
+    vertical-align: top;
+}
+
+
+.pac-col-busqueda {
+    height: 44px;
+    width: 431px;
+}
+
+.pac-col-sexo {
+    height: 44px;
+    width: 187px;
+}
+
+.pac-col-estado {
+    height: 44px;
+}
+
+.pac-col-accion {
+    width: 15%;
+    height: 44px;
+    vertical-align: bottom;
+}
+
+.nota-campo {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+/* Botón deshabilitado (turno ocupado - AltaBajaTurnos) */
+.btn-deshabilitado {
+    background-color: #cccccc !important;
+    border: 1px solid #999999 !important;
+    color: #666666 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    opacity: 0.7;
+}
+
+/* Mensajes de error de los validadores (ABML Médicos) */
+.validador-error {
+    display: block;
+    margin-top: 4px;
+    min-height: 16px;
+    color: #dc3545;
+    font-size: 12px;
+}

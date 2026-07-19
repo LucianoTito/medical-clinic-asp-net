@@ -1,0 +1,265 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Entidades;
+using Negocio;
+
+
+namespace Vistas
+{
+    public partial class AltaBajaTurnos : System.Web.UI.Page
+    {
+        private NegocioPaciente negocioPaciente = new NegocioPaciente();
+        private NegocioEspecialidad negocioEspecialidad = new NegocioEspecialidad();
+        private NegocioMedico negocioMedico = new NegocioMedico();
+        private NegocioTurnos negocioTurnos = new NegocioTurnos();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                CargarEspecialidades();
+            }
+        }
+
+        private void CargarEspecialidades()
+        {
+            ddlEspecialidad.DataSource = negocioEspecialidad.GetEspecialidades();
+
+            ddlEspecialidad.DataValueField = "Id_Especialidad";
+            ddlEspecialidad.DataTextField = "Descripcion_Esp";
+
+            ddlEspecialidad.DataBind();
+
+            ddlEspecialidad.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccione una Especialidad --", "0"));
+        }
+
+        protected void btnBuscarPaciente_Click(object sender, EventArgs e)
+        {
+            string dniBuscar = txtDniBuscar.Text.Trim();
+
+            if (string.IsNullOrEmpty(dniBuscar))
+            {
+                txtNombrePacienteOk.Text = "Ingrese un DNI por favor";
+                gvTurnosDelPaciente.DataSource = null;
+                gvTurnosDelPaciente.DataBind();
+                return;
+            }
+
+            EntidadPaciente pacienteEncontrado = negocioPaciente.BuscarPacientePorDni(dniBuscar);
+
+            if (pacienteEncontrado != null)
+            {
+                txtNombrePacienteOk.Text = pacienteEncontrado.NombreCompleto;
+                lblNombrePaciente.Text = pacienteEncontrado.NombreCompleto;
+                CargarTurnosDelPaciente(dniBuscar);
+            }
+            else
+            {
+                txtNombrePacienteOk.Text = "Paciente no encontrado";
+                lblNombrePaciente.Text = string.Empty;
+                gvTurnosDelPaciente.DataSource = null;
+                gvTurnosDelPaciente.DataBind();
+            }
+        }
+
+        protected void ddlEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idEsp = Convert.ToInt32(ddlEspecialidad.SelectedValue);
+
+            if (idEsp <= 0)
+            {
+                ddlMedico.Items.Clear();
+                ddlMedico.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccione un Médico --", "0"));
+                return;
+            }
+
+            DataTable tablaMedicos = negocioMedico.ListarMedicosPorEspecialidad(idEsp);
+
+            ddlMedico.DataSource = tablaMedicos;
+            ddlMedico.DataValueField = "Legajo_Med";
+            ddlMedico.DataTextField = "NombreCompleto";
+            ddlMedico.DataBind();
+
+            ddlMedico.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Seleccione un Médico --", "0"));
+        }
+
+
+        protected void ddlMedico_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            if (ddlMedico.SelectedValue == "0")
+            {
+                lblNombreMedico.Text = string.Empty;
+                gvHorariosDisponibles.DataSource = null;
+                gvHorariosDisponibles.DataBind();
+                return;
+            }
+            lblNombreMedico.Text = ddlMedico.SelectedItem.Text;
+            gvHorariosDisponibles.PageIndex = 0;
+            CargarGrillaAgenda();
+        }
+
+        protected void gvHorariosDisponibles_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvHorariosDisponibles.PageIndex = e.NewPageIndex;
+            CargarGrillaAgenda();
+        }
+
+        private void CargarGrillaAgenda()
+        {
+            string legajo = ddlMedico.SelectedValue;
+            DataTable dtHorarios = negocioTurnos.ObtenerHorarios(legajo);
+
+            if (dtHorarios == null || dtHorarios.Rows.Count == 0)
+            {
+                lblMensajeAgendarTurno.Text = "Este médico no tiene horarios agendados actualmente.";
+                lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+
+                gvHorariosDisponibles.DataSource = null;
+                gvHorariosDisponibles.DataBind();
+                return;
+            }
+
+
+            lblMensajeAgendarTurno.Text = string.Empty;
+
+            DataTable dtTurnos = negocioTurnos.ObtenerTurnosOcupados(legajo);
+
+            DataTable agenda = new DataTable();
+            agenda.Columns.Add("DiaSemana");
+            agenda.Columns.Add("Fecha");
+            agenda.Columns.Add("Hora");
+            agenda.Columns.Add("Ocupado", typeof(bool));
+
+            for (int i = 0; i < 30; i++)
+            {
+                DateTime fechaActual = DateTime.Today.AddDays(i);
+                if (fechaActual.DayOfWeek == DayOfWeek.Sunday) continue;
+
+                int idDia = (int)fechaActual.DayOfWeek;
+                string nombreDia = fechaActual.ToString("dddd", new System.Globalization.CultureInfo("es-ES"));
+                nombreDia = char.ToUpper(nombreDia[0]) + nombreDia.Substring(1);
+
+                foreach (DataRow dr in dtHorarios.Select("Id_Dia = " + idDia))
+                {
+                    string hora = dr["Hora"].ToString();
+                    string fechaFiltro = fechaActual.ToString("yyyy-MM-dd");
+                    bool ocupado = dtTurnos.Select($"Fecha = '{fechaFiltro}' AND Hora = '{hora}'").Length > 0;
+                    agenda.Rows.Add(nombreDia, fechaActual.ToString("dd/MM/yyyy"), hora, ocupado);
+                }
+            }
+
+            gvHorariosDisponibles.DataSource = agenda;
+            gvHorariosDisponibles.DataBind();
+        }
+
+
+
+        protected void gvHorariosDisponibles_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView rowView = (DataRowView)e.Row.DataItem;
+                if ((bool)rowView["Ocupado"])
+                {
+                    Button btn = (Button)e.Row.FindControl("btnReservar");
+                    if (btn != null)
+                    {
+                        btn.Enabled = false;
+                        btn.Text = "Reservado";
+                        btn.CssClass = "formato-btnBase btn-deshabilitado";
+                    }
+                }
+            }
+        }
+
+        protected void gvHorariosDisponibles_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            
+            if (e.CommandName == "Reservar")
+            {
+                
+                if (string.IsNullOrEmpty(txtNombrePacienteOk.Text) || txtNombrePacienteOk.Text == "Paciente no encontrado")
+                {
+                    lblMensajeAgendarTurno.Text = "Seleccione un paciente antes de reservar.";
+                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+               
+                int index = Convert.ToInt32(e.CommandArgument);
+               
+                string fecha = gvHorariosDisponibles.DataKeys[index].Values["Fecha"].ToString();
+                string hora = gvHorariosDisponibles.DataKeys[index].Values["Hora"].ToString();
+                string legajo = ddlMedico.SelectedValue.Trim();
+                string dniPaciente = txtDniBuscar.Text.Trim();
+
+               
+                if (negocioTurnos.InsertarNuevoTurno(legajo, dniPaciente, fecha, hora))
+                {
+                    CargarGrillaAgenda();
+                    CargarTurnosDelPaciente(dniPaciente);
+
+                    lblMensajeAgendarTurno.Text = "Turno reservado correctamente";
+                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    lblMensajeAgendarTurno.Text = "Error al reservar el turno. Verifique si ya fue ocupado.";
+                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+        }
+
+        protected void gvTurnosDelPaciente_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Cancelar")
+            {
+                int idTurno = Convert.ToInt32(e.CommandArgument);
+
+                bool exito = negocioTurnos.CancelarTurno(idTurno);
+
+                if (exito)
+                {
+                    string dni = txtDniBuscar.Text.Trim();
+                    CargarTurnosDelPaciente(dni);
+
+
+                    CargarGrillaAgenda();
+
+                    lblMensajeAgendarTurno.Text = "Turno cancelado y horario liberado.";
+                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    lblMensajeAgendarTurno.Text = "No se pudo cancelar el turno.";
+                    lblMensajeAgendarTurno.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+        }
+        private void CargarTurnosDelPaciente(string dni)
+        {
+            DataTable dtTurnos = negocioTurnos.ListarTurnosPaciente(dni);
+
+            if (dtTurnos != null && dtTurnos.Rows.Count > 0)
+            {
+                gvTurnosDelPaciente.DataSource = dtTurnos;
+                gvTurnosDelPaciente.DataBind();
+
+                lblMensajeCancelar.Text = string.Empty;
+            }
+            else
+            {
+                gvTurnosDelPaciente.DataSource = null;
+                gvTurnosDelPaciente.DataBind();
+
+                lblMensajeCancelar.Text = "No hay turnos registrados para este paciente.";
+                lblMensajeCancelar.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+    }
+}

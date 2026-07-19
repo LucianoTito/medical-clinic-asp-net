@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MedicosPrincipal.Master.cs" Inherits="Vistas.MedicosPrincipal" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>UTM | GR16</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <link href="EstilosClinica.css?v=2" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="/img/favicon_UTMGR16.png" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="smMedicos" runat="server"></asp:ScriptManager>
+
+        <div class="header">
+            <img src="~/img/logo_UTMGR16_hor.jpg" runat="server" alt="UTM" class="header-logo" />
+
+            <nav class="header-nav">
+                
+                <asp:HyperLink ID="hlTurnos" runat="server" NavigateUrl="~/TurnosMedico.aspx" Text="Turnos" />
+               
+            </nav>
+
+            <div class="header-user">
+                <asp:Label ID="lblUsuarioLogueado" runat="server" Text="[Usuario]" />
+                <asp:Button ID="btnCerrarSesion" runat="server" Text="Salir" CssClass="btn-logout" OnClick="btnCerrarSesion_Click" CausesValidation="false" />
+            </div>
+        </div>
+
+        <div class="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
+
+        <div class="footer">
+            UTN FRGP — Programación III — Grupo 16
+        </div>
+    </form>
+</body>
+</html>
