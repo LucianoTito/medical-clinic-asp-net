@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Dao
+namespace DAO
 {
     public class AccesoDatos
     {

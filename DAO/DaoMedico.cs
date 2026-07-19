@@ -1,11 +1,10 @@
-﻿using Dao;
-using Entidades;
+﻿using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Dao
+namespace DAO
 {
     public class DaoMedico
     {
