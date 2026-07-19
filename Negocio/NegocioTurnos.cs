@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +14,6 @@ namespace Negocio
     public class NegocioTurnos
     {
         private DaoTurnos tDao = new DaoTurnos();
-
-        public DataTable ListarTurnosMedico(string legajoMedico)
-        {
-            return tDao.ObtenerTurnosMedico(legajoMedico);
-        }
-
-        public bool ModificarTurnoEnBase(int idTurno, string dniPaciente)
-        {
-            return tDao.ReservarTurnoEnBD(idTurno, dniPaciente);
-        }
 
         public bool CancelarTurno(int idTurno)
         {
@@ -42,20 +32,41 @@ namespace Negocio
             return tDao.TraerAgendaCompleta(legajo);
         }
 
+        // Devuelve false si la fecha u hora no tienen un formato válido,
+        // sin lanzar excepción: la página muestra su mensaje de error normal.
         public bool InsertarNuevoTurno(string legajo, string dni, string fecha, string hora)
         {
+            if (!DateTime.TryParseExact(fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime fechaTurno))
+                return false;
+
+            if (!TimeSpan.TryParse(hora, out TimeSpan horaTurno))
+                return false;
+
             EntidadTurno nuevoTurno = new EntidadTurno();
 
             nuevoTurno.LegMedico = legajo.Trim();
             nuevoTurno.DniPaciente = dni.Trim();
-            nuevoTurno.FechaTur = DateTime.ParseExact(fecha, "dd/MM/yyyy", null);
-            nuevoTurno.HoraTur = TimeSpan.Parse(hora);
+            nuevoTurno.FechaTur = fechaTurno;
+            nuevoTurno.HoraTur = horaTurno;
 
             return tDao.InsertarTurno(nuevoTurno);
         }
 
-        public DataTable ListarTurnosFiltrados(string legajo, string busqueda, string fechaDesde, string fechaHasta)
+        // Traducción de tipos (string -> DateTime?) en la capa de negocio,
+        // igual que en NegocioInformes: campo vacío o inválido queda en null
+        // y el filtro se ignora en el SP.
+        public DataTable ListarTurnosFiltrados(string legajo, string busqueda, string fechaDesdeStr, string fechaHastaStr)
         {
+            DateTime? fechaDesde = null;
+            DateTime? fechaHasta = null;
+
+            if (DateTime.TryParse(fechaDesdeStr, out DateTime fd))
+                fechaDesde = fd;
+
+            if (DateTime.TryParse(fechaHastaStr, out DateTime fh))
+                fechaHasta = fh;
+
             return tDao.FiltrarTurnos(legajo, busqueda, fechaDesde, fechaHasta);
         }
 
@@ -64,11 +75,10 @@ namespace Negocio
             return tDao.ActualizarTurno(id, asist, obs);
         }
 
-        public DataTable ListarHostorialTurnosPaciente(string dni)
+        public DataTable ListarHistorialTurnosPaciente(string dni)
         {
             return tDao.HistorialTurnosPaciente(dni);
         }
-
 
     }
 }

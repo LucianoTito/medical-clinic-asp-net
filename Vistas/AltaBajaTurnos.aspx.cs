@@ -254,7 +254,7 @@ namespace Vistas
 
         private void CargarHistorialTurnosPaciente(string dni)
         {
-            DataTable dtHistorialTurnos = negocioTurnos.ListarHostorialTurnosPaciente(dni);
+            DataTable dtHistorialTurnos = negocioTurnos.ListarHistorialTurnosPaciente(dni);
 
             if (dtHistorialTurnos != null && dtHistorialTurnos.Rows.Count > 0)
             {

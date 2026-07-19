@@ -14,16 +14,6 @@ namespace DAO
     {
         private AccesoDatos ds = new AccesoDatos();
 
-        public bool ReservarTurnoEnBD(int idTurno, string dniPaciente)
-        {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Parameters.AddWithValue("@Id_Turno", idTurno);
-            cmd.Parameters.AddWithValue("@Dni_Paciente", dniPaciente);
-
-            int filasAfectadas = ds.EjecutarProcedimientoAlmacenado(cmd, "SP_ReservarTurno");
-            return filasAfectadas > 0;
-        }
-
         public bool CancelarTurnoEnBD(int idTurno)
         {
             SqlCommand cmd = new SqlCommand();
@@ -31,14 +21,6 @@ namespace DAO
 
             int filasAfectadas = ds.EjecutarProcedimientoAlmacenado(cmd, "SP_CancelarTurno");
             return filasAfectadas > 0;
-        }
-
-        public DataTable ObtenerTurnosMedico(string legajo)
-        {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Parameters.AddWithValue("@Leg_Medico", legajo);
-
-            return ds.ObtenerTablaConSP(cmd, "SP_ObtenerTurnosPorMedico");
         }
 
         public DataTable ObtenerTurnosPorDni(string dni)
@@ -71,16 +53,31 @@ namespace DAO
             return filas > 0;
         }
 
-        public DataTable FiltrarTurnos(string legajo, string busqueda, string fechaDesde, string fechaHasta)
+        // Filtros opcionales: las fechas viajan como DBNull cuando vienen en null
+        // y el SP las ignora con la condición (@Param IS NULL OR ...),
+        // igual que en DaoInformes. La traducción string -> DateTime? la hace Negocio.
+        public DataTable FiltrarTurnos(string legajo, string busqueda, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Parameters.AddWithValue("@LegajoMedico", legajo);
 
             cmd.Parameters.AddWithValue("@BusquedaPaciente", string.IsNullOrEmpty(busqueda) ? (object)DBNull.Value : busqueda);
-            cmd.Parameters.AddWithValue("@FechaDesde", string.IsNullOrEmpty(fechaDesde) ? (object)DBNull.Value : DateTime.Parse(fechaDesde));
-            cmd.Parameters.AddWithValue("@FechaHasta", string.IsNullOrEmpty(fechaHasta) ? (object)DBNull.Value : DateTime.Parse(fechaHasta));
 
-            return ds.ObtenerTablaConSP(cmd, "sp_ObtenerTurnosPorMedico");
+            SqlParameter pDesde = new SqlParameter("@FechaDesde", SqlDbType.Date);
+            if (fechaDesde != null)
+                pDesde.Value = fechaDesde;
+            else
+                pDesde.Value = DBNull.Value;
+            cmd.Parameters.Add(pDesde);
+
+            SqlParameter pHasta = new SqlParameter("@FechaHasta", SqlDbType.Date);
+            if (fechaHasta != null)
+                pHasta.Value = fechaHasta;
+            else
+                pHasta.Value = DBNull.Value;
+            cmd.Parameters.Add(pHasta);
+
+            return ds.ObtenerTablaConSP(cmd, "SP_ObtenerTurnosPorMedico");
         }
 
         public bool ActualizarTurno(int idTurno, string asistencia, string observaciones)
