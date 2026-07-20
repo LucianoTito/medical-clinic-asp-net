@@ -105,11 +105,17 @@ Design decisions worth highlighting:
 
 ### 📸 Screenshots
 
-<!-- TODO: add screenshots
-![Login](docs/screenshots/login.png)
-![Appointments](docs/screenshots/appointments.png)
-![Reports](docs/screenshots/reports.png)
--->
+**Full flow demo** — login, patient registration, appointment booking, doctor attendance and reports:
+
+![App demo](docs/screenshots/demo.gif)
+
+| Login | Appointment scheduling |
+|---|---|
+| ![Login](docs/screenshots/login.png) | ![Appointments](docs/screenshots/appointments.png) |
+
+| Reports & statistics | Doctor agenda |
+|---|---|
+| ![Reports](docs/screenshots/reports.png) | ![Doctor agenda](docs/screenshots/doctor-agenda.png) |
 
 ### ⚠️ Known Limitations & Roadmap
 
@@ -231,11 +237,17 @@ Decisiones de diseño destacables:
 
 ### 📸 Capturas de Pantalla
 
-<!-- TODO: agregar capturas
-![Login](docs/screenshots/login.png)
-![Turnos](docs/screenshots/appointments.png)
-![Informes](docs/screenshots/reports.png)
--->
+**Demo del flujo completo** — login, alta de paciente, reserva de turno, asistencia del médico e informes:
+
+![Demo de la aplicación](docs/screenshots/demo.gif)
+
+| Login | Asignación de turnos |
+|---|---|
+| ![Login](docs/screenshots/login.png) | ![Turnos](docs/screenshots/appointments.png) |
+
+| Informes y estadísticas | Agenda del médico |
+|---|---|
+| ![Informes](docs/screenshots/reports.png) | ![Agenda del médico](docs/screenshots/doctor-agenda.png) |
 
 ### ⚠️ Limitaciones Conocidas y Roadmap
 
