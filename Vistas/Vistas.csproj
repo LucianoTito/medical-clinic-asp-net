@@ -69,6 +69,9 @@
   <ItemGroup>
     <Content Include="AltaBajaTurnos.aspx" />
     <Content Include="EstilosClinica.css" />
+    <Content Include="img\favicon_UTMGR16.png" />
+    <Content Include="img\logo_UTMGR16.jpg" />
+    <Content Include="img\logo_UTMGR16_hor.jpg" />
     <Content Include="Informes.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Medicos.aspx" />
@@ -139,6 +142,7 @@
     <None Include="packages.config" />
     <Content Include="Principal.Master" />
     <Content Include="MedicosPrincipal.Master" />
+    <None Include="Properties\PublishProfiles\site80489-WebDeploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
