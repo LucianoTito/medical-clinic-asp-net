@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace DAO
 {
     public class AccesoDatos
     {
-        private string rutaBDClinica = "Data Source=localhost\\sqlexpress;Initial Catalog=ClinicaMedica;Integrated Security=True";
-
+        
+        private string rutaBDClinica = ConfigurationManager.ConnectionStrings["ClinicaMedica"].ConnectionString;
         public SqlConnection ObtenerConexion()
         {
             SqlConnection cn = new SqlConnection(rutaBDClinica);
