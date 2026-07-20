@@ -749,3 +749,67 @@ body {
     color: #1565c0; /* azul informativo */
     font-weight: 600;
 }
+
+/* ==========================================================================
+   MODO RESPONSIVE (CELULARES Y TABLETS)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    /* 1. Encabezado adaptable (Apila logo, menú y usuario hacia abajo) */
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .header-logo {
+        margin: 0 auto 10px auto;
+    }
+
+    .header-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .header-user {
+        width: 100%;
+        justify-content: center;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 10px;
+    }
+
+    /* 2. Formularios y Columnas (Todo al 100% del ancho) */
+    .pac-col-busqueda,
+    .pac-col-sexo,
+    .pac-col-estado,
+    .pac-col-accion {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    select {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* 3. Evitar que las grillas (GridView) rompan la pantalla */
+    /* Esto permite que la tabla se pueda scrollear hacia los costados con el dedo */
+    table, .horarios-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    /* 4. Reducir márgenes laterales del contenido principal */
+    .content {
+        padding: 10px;
+    }
+}
