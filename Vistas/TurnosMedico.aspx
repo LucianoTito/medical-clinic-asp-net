@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MedicosPrincipal.Master" AutoEventWireup="true" CodeBehind="TurnosMedico.aspx.cs" Inherits="Vistas.TurnosMedico" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MedicosPrincipal.Master" AutoEventWireup="true" CodeBehind="TurnosMedico.aspx.cs" Inherits="Vistas.TurnosMedico" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -22,29 +22,20 @@
                 <tr>
                     <td style="width: 30%;">
                         <asp:Label ID="lblBuscarPaciente" runat="server" Text="BUSCAR POR PACIENTE (DNI O NOMBRE)" CssClass="fomato-Label"></asp:Label>
+                        <asp:TextBox ID="txtBuscarPaciente" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Ej: Juan Pérez"></asp:TextBox>
                     </td>
                     <td style="width: 25%;">
                         <asp:Label ID="lblFechaDesde" runat="server" Text="FECHA DESDE" CssClass="fomato-Label"></asp:Label>
-                    </td>
-                    <td style="width: 25%;">
-                        <asp:Label ID="lblFechaHasta" runat="server" Text="FECHA HASTA" CssClass="fomato-Label"></asp:Label>
-                    </td>
-                    <td style="width: 20%;"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="txtBuscarPaciente" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Ej: Juan Pérez"></asp:TextBox>
-                    </td>
-                    <td>
                         <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                         <asp:CompareValidator ID="cvFechaDesdeFormato" runat="server" ControlToValidate="txtFechaDesde" CssClass="validador-error" Display="Dynamic" ErrorMessage="La Fecha Desde no es una fecha válida." Font-Size="Small" ForeColor="Red" Operator="DataTypeCheck" Type="Date" ValidationGroup="GrupoTurnosMedico"></asp:CompareValidator>
                     </td>
-                    <td>
+                    <td style="width: 25%;">
+                        <asp:Label ID="lblFechaHasta" runat="server" Text="FECHA HASTA" CssClass="fomato-Label"></asp:Label>
                         <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date" ValidationGroup="GrupoTurnosMedico"></asp:TextBox>
                         <asp:CompareValidator ID="cvFechaHastaFormato" runat="server" ControlToValidate="txtFechaHasta" CssClass="validador-error" Display="Dynamic" ErrorMessage="La Fecha Hasta no es una fecha válida." Font-Size="Small" ForeColor="Red" Operator="DataTypeCheck" Type="Date" ValidationGroup="GrupoTurnosMedico"></asp:CompareValidator>
                         <asp:CompareValidator ID="cvFechaHasta" runat="server" ControlToCompare="txtFechaDesde" ControlToValidate="txtFechaHasta" CssClass="validador-error" Display="Dynamic" ErrorMessage="La Fecha Hasta debe ser mayor o igual a la Fecha Desde." Font-Size="Small" ForeColor="Red" Operator="GreaterThanEqual" Type="Date" ValidationGroup="GrupoTurnosMedico"></asp:CompareValidator>
                     </td>
-                    <td style="vertical-align: bottom;">
+                    <td style="width: 20%; vertical-align: bottom;">
                         <div class="formato-btnAlineados" style="margin-top: 0;">
                             <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="formato-btnBase formato1-btn" OnClick="btnFiltrar_Click" ValidationGroup="GrupoTurnosMedico" />
                             <asp:Button ID="btnLimpiarFiltros" runat="server" Text="Limpiar" CssClass="formato-btnBase formato2-btn" OnClick="btnLimpiarFiltros_Click" />

@@ -15,7 +15,7 @@ html, body {
 body {
     font-family: 'Source Sans 3', sans-serif;
     color: #1C1C1E;
-    background: #F8FAFB; 
+    background: #F8FAFB;
 }
 
 #form1 {
@@ -527,7 +527,7 @@ body {
    ESTILOS ALTA/BAJA TURNOS
    ============================== */
 .btn-danger {
-    background-color: #dc3545 !important; 
+    background-color: #dc3545 !important;
     color: white !important;
     border: 1px solid #dc3545 !important;
 }
@@ -540,10 +540,10 @@ body {
     }
 
     .btn-danger:disabled {
-        background-color: #E2E8F0 !important; 
+        background-color: #E2E8F0 !important;
         color: #94A3B8 !important;
-        border-color: #CBD5E1 !important; 
-        cursor: not-allowed !important; 
+        border-color: #CBD5E1 !important;
+        cursor: not-allowed !important;
     }
 
 /* ==============================
@@ -611,7 +611,7 @@ body {
         font-weight: bold;
     }
 
-/* ============================================================
+    /* ============================================================
    PAGINADOR DE GRILLAS (GridView con AllowPaging)
    ASP.NET genera la fila de números de página como una TABLA
    ANIDADA dentro de una celda de la grilla. Sin estas reglas,
@@ -619,47 +619,47 @@ body {
    ".custom-grid td", y por eso se ven "separados" en cajones.
    Estas reglas aplican a TODAS las grillas de la app.
    ============================================================ */
-.custom-grid td table {
-    border-collapse: collapse;
-    margin: 0 auto; /* números centrados en la fila */
-    box-shadow: none;
-    min-width: 0;
-}
-
-    .custom-grid td table td {
-        padding: 2px 4px; /* pisa el padding grande heredado */
-        border-bottom: none; /* pisa el borde heredado */
-        background-color: transparent;
+    .custom-grid td table {
+        border-collapse: collapse;
+        margin: 0 auto; /* números centrados en la fila */
+        box-shadow: none;
+        min-width: 0;
     }
 
-    /* Links a las otras páginas */
-    .custom-grid td table a {
-        display: inline-block;
-        min-width: 24px;
-        padding: 3px 8px;
-        margin: 0; /* pisa el margin-right de .custom-grid a */
-        text-align: center;
-        color: #3498db;
-        border-radius: 4px;
-        font-weight: bold;
-    }
-
-        .custom-grid td table a:hover {
-            background-color: #eaf4fc;
-            text-decoration: none;
+        .custom-grid td table td {
+            padding: 2px 4px; /* pisa el padding grande heredado */
+            border-bottom: none; /* pisa el borde heredado */
+            background-color: transparent;
         }
 
-    /* Página actual (ASP.NET la renderiza como <span>) */
-    .custom-grid td table span {
-        display: inline-block;
-        min-width: 24px;
-        padding: 3px 8px;
-        text-align: center;
-        background-color: #2c3e50;
-        color: #ffffff;
-        border-radius: 4px;
-        font-weight: bold;
-    }
+        /* Links a las otras páginas */
+        .custom-grid td table a {
+            display: inline-block;
+            min-width: 24px;
+            padding: 3px 8px;
+            margin: 0; /* pisa el margin-right de .custom-grid a */
+            text-align: center;
+            color: #3498db;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+            .custom-grid td table a:hover {
+                background-color: #eaf4fc;
+                text-decoration: none;
+            }
+
+        /* Página actual (ASP.NET la renderiza como <span>) */
+        .custom-grid td table span {
+            display: inline-block;
+            min-width: 24px;
+            padding: 3px 8px;
+            text-align: center;
+            background-color: #2c3e50;
+            color: #ffffff;
+            border-radius: 4px;
+            font-weight: bold;
+        }
 
 /* Mensajes de error de los validadores (ABML Médicos) */
 .validador-error {
@@ -752,64 +752,202 @@ body {
 
 /* ==========================================================================
    MODO RESPONSIVE (CELULARES Y TABLETS)
+   REQUISITO: las tres cabeceras HTML del sitio (Principal.Master,
+   MedicosPrincipal.Master y Login.aspx) deben incluir dentro de <head>:
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   Sin esa linea, el navegador del celular renderiza la pagina a ~980px
+   virtuales y estos @media nunca se activan.
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   TABLETS Y PANTALLAS MEDIANAS (hasta 1024px)
+   Las grillas de datos (GridView) son mas anchas que la pantalla: en vez
+   de dejar que rompan el layout, se convierten en bloques con scroll
+   horizontal tactil. Las tablas de LAYOUT de formularios NO se tocan aca.
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 1024px) {
+
+    .content {
+        padding: 20px 16px;
+    }
+
+    .custom-grid,
+    .horarios-table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* El min-width fijo de 1000px era para forzar scroll dentro del
+       contenedor en desktop; en pantallas chicas lo maneja el propio
+       scroll de la grilla. */
+    .contenedor-grilla .custom-grid {
+        min-width: 0;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   CELULARES (hasta 768px)
+   -------------------------------------------------------------------------- */
 @media screen and (max-width: 768px) {
 
-    /* 1. Encabezado adaptable (Apila logo, menú y usuario hacia abajo) */
+    /* 1. HEADER: logo, menu y usuario apilados */
     .header {
         flex-direction: column;
         height: auto;
-        padding: 15px;
-        text-align: center;
+        padding: 12px 10px;
     }
 
     .header-logo {
-        margin: 0 auto 10px auto;
+        margin: 0 auto 10px;
     }
 
     .header-nav {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
-        margin-bottom: 10px;
+        gap: 6px;
+        margin-bottom: 8px;
     }
 
     .header-user {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
         border-top: 1px solid rgba(255,255,255,0.2);
         padding-top: 10px;
     }
 
-    /* 2. Formularios y Columnas (Todo al 100% del ancho) */
-    .pac-col-busqueda,
-    .pac-col-sexo,
-    .pac-col-estado,
-    .pac-col-accion {
+    /* 2. CONTENIDO GENERAL */
+    .content {
+        padding: 14px 10px;
+    }
+
+    .formato-Bloque-Contenedor {
+        padding: 16px 14px;
+    }
+
+    /* 3. LOGIN: la tabla de dos columnas pasa a una sola columna */
+    .login-table,
+    .login-table tbody,
+    .login-table tr,
+    .login-table td {
+        display: block;
         width: 100% !important;
         height: auto !important;
-        display: block;
-        margin-bottom: 10px;
     }
 
-    input[type="text"],
-    select {
-        width: 100% !important;
-        box-sizing: border-box;
+    .login-left {
+        padding: 24px 16px;
     }
 
-    /* 3. Evitar que las grillas (GridView) rompan la pantalla */
-    /* Esto permite que la tabla se pueda scrollear hacia los costados con el dedo */
-    table, .horarios-table {
-        display: block;
+        .login-left img {
+            width: 110px;
+            height: 110px;
+        }
+
+    .footer-text {
+        margin-top: 14px;
+    }
+
+    .login-right {
+        padding: 28px 14px 44px;
+    }
+
+    .login-card {
         width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        white-space: nowrap;
+        max-width: 400px;
     }
 
-    /* 4. Reducir márgenes laterales del contenido principal */
-    .content {
-        padding: 10px;
+    .card-body {
+        padding: 26px 20px;
+    }
+
+    /* 4. TABLAS DE LAYOUT DE FORMULARIOS: columnas apiladas.
+       OJO: esto aplica SOLO a las tablas de maquetado (.tabla-pacientes
+       y .tabla-medicos). Las grillas de datos ya se resolvieron con
+       scroll horizontal en el breakpoint de 1024px. */
+    .tabla-pacientes,
+    .tabla-medicos,
+    .tabla-pacientes tbody,
+    .tabla-medicos tbody,
+    .tabla-pacientes tr,
+    .tabla-medicos tr,
+    .tabla-pacientes td,
+    .tabla-medicos td {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+        .tabla-pacientes td,
+        .tabla-medicos td {
+            margin-bottom: 12px;
+            padding: 0;
+        }
+
+    .bloque-horarios {
+        margin: 6px 0 0;
+    }
+
+    /* 5. CONTROLES AL 100% DEL ANCHO
+       El !important pisa los Width="322px" / Width="246px" que ASP.NET
+       renderiza como estilo inline en algunos controles. */
+    .fomato-TextBox-Ddl,
+    .input-field {
+        width: 100% !important;
+    }
+
+    .fomato-Label {
+        width: auto !important;
+    }
+
+    /* 6. BOTONES COMODOS PARA EL DEDO (fuera de las grillas) */
+    .formato-btnBase {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Dentro de las grillas los botones conservan su tamano normal */
+    .custom-grid .formato-btnBase {
+        width: auto;
+        padding: 6px 14px;
+    }
+
+    .formato-btnAlineados {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .acciones-celda {
+        flex-wrap: wrap;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   CELULARES CHICOS (hasta 480px): ajustes finos
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 480px) {
+
+    .header-logo {
+        height: 40px;
+    }
+
+    .header-nav a {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .login-left img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .card-body {
+        padding: 22px 16px;
+    }
+
+    .formato-Titulo {
+        font-size: 13px;
     }
 }

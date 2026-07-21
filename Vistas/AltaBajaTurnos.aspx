@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="AltaBajaTurnos.aspx.cs" Inherits="Vistas.AltaBajaTurnos" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="AltaBajaTurnos.aspx.cs" Inherits="Vistas.AltaBajaTurnos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -20,20 +20,15 @@
                     <table class="tabla-pacientes" style="width: 100%;">
                         <tr>
                             <td style="width: 40%;">
-                                <asp:Label ID="lblDniPaciente" runat="server" Text="INGRESE DNI DEL PACIENTE" CssClass="fomato-Label" /></td>
-                            <td style="width: 20%;"></td>
-                            <td style="width: 40%;">
-                                <asp:Label ID="lblPacienteSeleccionado" runat="server" Text="Nombre Paciente " CssClass="fomato-Label" /></td>
-                        </tr>
-                        <tr>
-                            <td>
+                                <asp:Label ID="lblDniPaciente" runat="server" Text="INGRESE DNI DEL PACIENTE" CssClass="fomato-Label" />
                                 <asp:TextBox ID="txtDniBuscar" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Ej: 35123456" TextMode="Number" />
                                 <asp:RegularExpressionValidator ID="revDni" runat="server" ControlToValidate="txtDniBuscar" CssClass="validador-error" Display="Dynamic" ErrorMessage="Solo números (7 u 8 dígitos)." Font-Size="Small" ForeColor="Red" ValidationExpression="^\d{7,8}$" ValidationGroup="GrupoGestionDeTurnos"></asp:RegularExpressionValidator>
                             </td>
-                            <td style="vertical-align: bottom;">
+                            <td style="width: 20%; vertical-align: bottom;">
                                 <asp:Button ID="btnBuscarPaciente" runat="server" Text="Buscar" CssClass="formato-btnBase formato1-btn" OnClick="btnBuscarPaciente_Click" ValidationGroup="GrupoGestionDeTurnos" />
                             </td>
-                            <td>
+                            <td style="width: 40%;">
+                                <asp:Label ID="lblPacienteSeleccionado" runat="server" Text="Nombre Paciente " CssClass="fomato-Label" />
                                 <asp:TextBox ID="txtNombrePacienteOk" runat="server" CssClass="fomato-TextBox-Ddl" ReadOnly="true" placeholder="Ningún paciente seleccionado" /></td>
                         </tr>
                     </table>
@@ -48,16 +43,12 @@
                 <table class="tabla-pacientes" style="width: 100%;">
                     <tr>
                         <td style="width: 50%;">
-                            <asp:Label ID="lblEspecialidad" runat="server" Text="ESPECIALIDAD" CssClass="fomato-Label" /></td>
-                        <td style="width: 50%;">
-                            <asp:Label ID="lblMedico" runat="server" Text="MÉDICO" CssClass="fomato-Label" /></td>
-                    </tr>
-                    <tr>
-                        <td>
+                                <asp:Label ID="lblEspecialidad" runat="server" Text="ESPECIALIDAD" CssClass="fomato-Label" />
 
                             <asp:DropDownList ID="ddlEspecialidad" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged" CssClass="fomato-TextBox-Ddl" />
                         </td>
-                        <td>
+                        <td style="width: 50%;">
+                            <asp:Label ID="lblMedico" runat="server" Text="MÉDICO" CssClass="fomato-Label" />
                             <asp:DropDownList ID="ddlMedico" runat="server"
                                 AutoPostBack="true"
                                 CssClass="fomato-TextBox-Ddl"
