@@ -21,9 +21,9 @@ namespace DAO
                 cn.Open();
                 return cn;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception("Error al conectar a la BD: " + ex.Message);
             }
         }
 

@@ -1,4 +1,4 @@
-<%@ Page Title="Informes y Estadísticas" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Informes.aspx.cs" Inherits="Vistas.Informes" %>
+﻿<%@ Page Title="Informes y Estadísticas" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Informes.aspx.cs" Inherits="Vistas.Informes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"></asp:Content>
 
@@ -20,19 +20,28 @@
                         <tr>
                             <td style="width: 25%;">
                                 <asp:Label ID="lblDesde" runat="server" Text="Fecha Desde" CssClass="fomato-Label"></asp:Label>
-                                <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                             </td>
                             <td style="width: 25%;">
                                 <asp:Label ID="lblHasta" runat="server" Text="Fecha Hasta" CssClass="fomato-Label"></asp:Label>
-                                <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                             </td>
                             <td style="width: 25%;">
                                 <asp:Label ID="lblEspecialidadInfo" runat="server" Text="Filtrar por Especialidad" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td style="width: 25%;"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
+                            </td>
+                            <td>
 
                                 <asp:DropDownList ID="ddlEspecialidades" runat="server" CssClass="fomato-TextBox-Ddl">
                                 </asp:DropDownList>
                             </td>
-                            <td style="width: 25%; vertical-align: bottom;">
+                            <td style="vertical-align: bottom;">
                                 <asp:Button ID="btnGenerarReporte" runat="server" Text="Generar"
                                     CssClass="formato-btnBase formato1-btn"
                                     ValidationGroup="grupoInformes"
@@ -117,13 +126,20 @@
                     <tr>
                         <td style="width: 25%;">
                             <asp:Label ID="lblDesdePac" runat="server" Text="Fecha Desde" CssClass="fomato-Label"></asp:Label>
-                            <asp:TextBox ID="txtFechaDesdePac" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                         </td>
                         <td style="width: 25%;">
                             <asp:Label ID="lblHastaPac" runat="server" Text="Fecha Hasta" CssClass="fomato-Label"></asp:Label>
+                        </td>
+                        <td style="width: 50%;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:TextBox ID="txtFechaDesdePac" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
+                        </td>
+                        <td>
                             <asp:TextBox ID="txtFechaHastaPac" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                         </td>
-                        <td style="width: 50%; vertical-align: bottom;">
+                        <td style="vertical-align: bottom;">
                             <asp:Button ID="btnGenerarPacientes" runat="server" Text="Generar"
                                 CssClass="formato-btnBase formato1-btn"
                                 ValidationGroup="grupoPacientes"

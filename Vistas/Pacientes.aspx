@@ -1,4 +1,4 @@
-<%@ Page Title="Gestión de Pacientes" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Pacientes.aspx.cs" Inherits="Vistas.Pacientes" %>
+﻿<%@ Page Title="Gestión de Pacientes" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Pacientes.aspx.cs" Inherits="Vistas.Pacientes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -24,30 +24,48 @@
                 <asp:Panel ID="pnlAltaPaciente" runat="server" DefaultButton="btnGuardar">
 
                     <table class="tabla-pacientes">
-                        <tr class="fila-campo">
+                        <tr class="fila-titulo">
                             <td style="width: 24%;">
                                 <asp:Label ID="lblDni" runat="server" Text="DNI" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td style="width: 38%;">
+                                <asp:Label ID="lblNombre" runat="server" Text="NOMBRE" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td style="width: 38%;">
+                                <asp:Label ID="lblApellido" runat="server" Text="APELLIDO" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="fila-campo">
+                            <td>
                                 <asp:TextBox ID="txtDni" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Ej: 40123456"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvDni" runat="server" ControlToValidate="txtDni" CssClass="validador-error" ErrorMessage="El DNI es obligatorio." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revDni" runat="server" ControlToValidate="txtDni" CssClass="validador-error" ErrorMessage="Solo números (7 u 8 dígitos)." ValidationExpression="^\d{7,8}$" ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RegularExpressionValidator>
                             </td>
-                            <td style="width: 38%;">
-                                <asp:Label ID="lblNombre" runat="server" Text="NOMBRE" CssClass="fomato-Label"></asp:Label>
+                            <td>
                                 <asp:TextBox ID="txtNombre" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Nombre/s"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" CssClass="validador-error" ErrorMessage="El nombre es obligatorio." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revNombre" runat="server" ControlToValidate="txtNombre" CssClass="validador-error" Display="Dynamic" ErrorMessage="El nombre solo puede contener letras y espacios" Font-Size="Small" ForeColor="Red" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$" ValidationGroup="GrupoAltaPaciente"></asp:RegularExpressionValidator>
                             </td>
-                            <td style="width: 38%;">
-                                <asp:Label ID="lblApellido" runat="server" Text="APELLIDO" CssClass="fomato-Label"></asp:Label>
+                            <td>
                                 <asp:TextBox ID="txtApellido" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Apellido/s"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellido" CssClass="validador-error" ErrorMessage="El apellido es obligatorio." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revApellido" runat="server" ControlToValidate="txtApellido" CssClass="validador-error" Display="Dynamic" ErrorMessage="El nombre solo puede contener letras y espacios" Font-Size="Small" ForeColor="Red" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$" ValidationGroup="GrupoAltaPaciente"></asp:RegularExpressionValidator>
                             </td>
                         </tr>
 
-                        <tr class="fila-campo">
+                        <tr class="fila-titulo">
                             <td>
                                 <asp:Label ID="lblSexo" runat="server" Text="SEXO" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblNacionalidad" runat="server" Text="NACIONALIDAD" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFechaNacimiento" runat="server" Text="FECHA DE NACIMIENTO" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="fila-campo">
+                            <td>
                                 <asp:DropDownList ID="ddlSexo" runat="server" CssClass="fomato-TextBox-Ddl">
                                     <asp:ListItem Value="">--Seleccionar--</asp:ListItem>
                                     <asp:ListItem>Masculino</asp:ListItem>
@@ -56,7 +74,6 @@
                                 <asp:RequiredFieldValidator ID="rfvSexo" runat="server" ControlToValidate="ddlSexo" CssClass="validador-error" InitialValue="" ErrorMessage="Seleccione un sexo." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblNacionalidad" runat="server" Text="NACIONALIDAD" CssClass="fomato-Label"></asp:Label>
                                 <asp:DropDownList ID="ddlNacionalidad" runat="server" CssClass="fomato-TextBox-Ddl">
                                     <asp:ListItem Value="">--Seleccionar--</asp:ListItem>
                                     <asp:ListItem>Argentina</asp:ListItem>
@@ -70,28 +87,35 @@
                                 <asp:RequiredFieldValidator ID="rfvNacionalidad" runat="server" ControlToValidate="ddlNacionalidad" CssClass="validador-error" InitialValue="" ErrorMessage="Seleccione nacionalidad." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblFechaNacimiento" runat="server" Text="FECHA DE NACIMIENTO" CssClass="fomato-Label"></asp:Label>
                                 <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="fomato-TextBox-Ddl" TextMode="Date"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvFechaNacimiento" runat="server" ControlToValidate="txtFechaNacimiento" CssClass="validador-error" ErrorMessage="La fecha es obligatoria." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RangeValidator ID="rvFecha" runat="server" ControlToValidate="txtFechaNacimiento" CssClass="validador-error" Display="Dynamic" ErrorMessage="La fecha debe estar entre 01/01/1900 y hoy." Font-Size="Small" ForeColor="Red" MinimumValue="1900-01-01" Type="Date" ValidationGroup="GrupoAltaPaciente"></asp:RangeValidator>
                             </td>
                         </tr>
 
-                        <tr class="fila-campo">
+                        <tr class="fila-titulo">
                             <td>
                                 <asp:Label ID="lblDireccion" runat="server" Text="DIRECCION" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblProvincia" runat="server" Text="PROVINCIA" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblLocalidad" runat="server" Text="LOCALIDAD" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="fila-campo">
+                            <td>
                                 <asp:TextBox ID="txtDireccion" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Calle y número"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvDireccion" runat="server" ControlToValidate="txtDireccion" CssClass="validador-error" ErrorMessage="La dirección es obligatoria." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblProvincia" runat="server" Text="PROVINCIA" CssClass="fomato-Label"></asp:Label>
                                 <asp:DropDownList ID="ddlProvincia" runat="server" CssClass="fomato-TextBox-Ddl" AutoPostBack="True" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged">
                                     <asp:ListItem Value="">--Seleccionar--</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="rfvProvincia" runat="server" ControlToValidate="ddlProvincia" CssClass="validador-error" InitialValue="" ErrorMessage="Seleccione provincia." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblLocalidad" runat="server" Text="LOCALIDAD" CssClass="fomato-Label"></asp:Label>
                                 <asp:DropDownList ID="ddlLocalidad" runat="server" CssClass="fomato-TextBox-Ddl">
                                     <asp:ListItem Value="">--Seleccionar--</asp:ListItem>
                                 </asp:DropDownList>
@@ -99,15 +123,22 @@
                             </td>
                         </tr>
 
+                        <tr class="fila-titulo">
+                            <td>
+                                <asp:Label ID="lblCorreoElectronico" runat="server" Text="CORREO ELECTRONICO" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:Label ID="lblTelefono" runat="server" Text="TELEFONO" CssClass="fomato-Label"></asp:Label>
+                            </td>
+                        </tr>
                         <tr class="fila-campo">
                             <td colspan="2">
-                                <asp:Label ID="lblCorreoElectronico" runat="server" Text="CORREO ELECTRONICO" CssClass="fomato-Label"></asp:Label>
                                 <asp:TextBox ID="txtCorreoElectronico" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="ejemplo@mail.com"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvCorreoElectronico" runat="server" ControlToValidate="txtCorreoElectronico" CssClass="validador-error" ErrorMessage="El correo es obligatorio." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revCorreoElectronico" runat="server" ControlToValidate="txtCorreoElectronico" CssClass="validador-error" ErrorMessage="Formato de correo electrónico inválido." ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RegularExpressionValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblTelefono" runat="server" Text="TELEFONO" CssClass="fomato-Label"></asp:Label>
                                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Ej: 1155556666"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" CssClass="validador-error" ErrorMessage="El teléfono es obligatorio." ForeColor="Red" Display="Dynamic" Font-Size="Small" ValidationGroup="GrupoAltaPaciente"></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" CssClass="validador-error" Display="Dynamic" ErrorMessage="Solo números (entre 10 y 15 dígitos)." Font-Size="Small" ForeColor="Red" ValidationExpression="^\d{10,15}$" ValidationGroup="GrupoAltaPaciente"></asp:RegularExpressionValidator>
@@ -138,11 +169,20 @@
 
                     <table class="tabla-pacientes">
                         <tr>
+                            <td class="pac-col-busqueda">&nbsp;</td>
+                            <td class="pac-col-sexo">
+                                <asp:Label ID="lblSexo0" runat="server" Text="SEXO" CssClass="fomato-Label" Width="246px"></asp:Label>
+                            </td>
+                            <td class="pac-col-estado">
+                                <asp:Label ID="lblEstadoFiltro" runat="server" Text="ESTADO" CssClass="fomato-Label" Width="246px"></asp:Label>
+                            </td>
+                            <td class="pac-col-accion">&nbsp;</td>
+                        </tr>
+                        <tr>
                             <td class="pac-col-busqueda">
                                 <asp:TextBox ID="txtBuscar" runat="server" CssClass="fomato-TextBox-Ddl" placeholder="Por nombre, apellido o DNI" Width="322px"></asp:TextBox>
                             </td>
                             <td class="pac-col-sexo">
-                                <asp:Label ID="lblSexo0" runat="server" Text="SEXO" CssClass="fomato-Label" Width="246px"></asp:Label>
                                 <asp:DropDownList ID="ddlFiltroSexo" runat="server" CssClass="fomato-TextBox-Ddl">
                                     <asp:ListItem Value="">-- Todos --</asp:ListItem>
                                     <asp:ListItem>Masculino</asp:ListItem>
@@ -150,7 +190,6 @@
                                 </asp:DropDownList>
                             </td>
                             <td class="pac-col-estado">
-                                <asp:Label ID="lblEstadoFiltro" runat="server" Text="ESTADO" CssClass="fomato-Label" Width="246px"></asp:Label>
                                 <asp:DropDownList ID="ddlFiltroEstado" runat="server" CssClass="fomato-TextBox-Ddl">
                                     <asp:ListItem Value="-1">-- Todos --</asp:ListItem>
                                     <asp:ListItem Value="1">Activo</asp:ListItem>
@@ -249,7 +288,7 @@
 
                 <asp:TemplateField HeaderText="Dirección">
                     <ItemTemplate>
-                        <asp:Label ID="lbl_it_Direccion" runat="server" Text='<%# Eval("Dirección") %>' />
+                        <asp:Label ID="lbl_it_Direccion" runat="server" Text='<%# Eval("Direccion") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -267,13 +306,13 @@
 
                 <asp:TemplateField HeaderText="Correo Electrónico">
                     <ItemTemplate>
-                        <asp:Label ID="lbl_it_Correo" runat="server" Text='<%# Eval("Correo Electrónico") %>' />
+                        <asp:Label ID="lbl_it_Correo" runat="server" Text='<%# Eval("Correo Electronico") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
 
                 <asp:TemplateField HeaderText="Teléfono">
                     <ItemTemplate>
-                        <asp:Label ID="lbl_it_Telefono" runat="server" Text='<%# Eval("Teléfono") %>' />
+                        <asp:Label ID="lbl_it_Telefono" runat="server" Text='<%# Eval("Telefono") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
 
